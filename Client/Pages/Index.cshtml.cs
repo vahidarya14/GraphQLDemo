@@ -5,17 +5,24 @@ namespace Client.Pages
 {
     public class IndexModel : PageModel
     {
+        private readonly IConferenceClient _koiosGraphQlClient;
         private readonly ILogger<IndexModel> _logger;
-        private IStarWarsClient _starWarClient;
-        public IndexModel(ILogger<IndexModel> logger, IStarWarsClient starWarClient)
+    
+        public IndexModel(IConferenceClient koiosGraphQlClient,ILogger<IndexModel> logger)
         {
+            _koiosGraphQlClient = koiosGraphQlClient;
+
             _logger = logger;
-            _starWarClient = starWarClient;
         }
 
         public async void OnGet()
         {
-            var book = await _starWarClient.GetBookAsync();
+           var data = await _koiosGraphQlClient.GetBook.ExecuteAsync();
+            if (data.Errors.Count>0)
+            {
+                _logger.LogWarning(string.Join(',', data.Errors.Select(x => $"{x.Path}={x.Message}")));
+
+            }
         }
     }
 }

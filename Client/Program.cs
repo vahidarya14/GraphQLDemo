@@ -4,10 +4,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 //builder.Services.AddDefaultScalarSerializers();
-builder.Services.AddStarWarsClient();
+builder.Services
+        .AddConferenceClient()
+        .ConfigureHttpClient(client => client.BaseAddress = new Uri("https://localhost:7043/graphql"));
+
 //builder.Services.AddHttpClient("StarWarsClient")
 //    .ConfigureHttpClient(client =>
-//        client.BaseAddress = new Uri("https://localhost:44394/graphql"));
+//        client.BaseAddress = new Uri("https://localhost:7043/graphql"));
 
 var app = builder.Build();
 
