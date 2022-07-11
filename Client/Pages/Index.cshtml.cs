@@ -5,6 +5,7 @@ namespace Client.Pages
 {
     public class IndexModel : PageModel
     {
+        //https://chillicream.com/docs/strawberryshake/get-started
         private readonly IConferenceClient _koiosGraphQlClient;
         private readonly ILogger<IndexModel> _logger;
     
